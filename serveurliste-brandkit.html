@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ServeurListe — Brand Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+<style>
+
+/* ╔══════════════════════════════════════════╗
+   ║  DESIGN TOKENS — DUAL THEME              ║
+   ╚══════════════════════════════════════════╝ */
+
+:root {
+  /* Brand (invariants) */
+  --brand-dark:    #1A1C1B;
+  --brand-yellow:  #F5F07A;
+  --brand-pink:    #E84A7A;
+
+  /* Transitions */
+  --t: 200ms ease;
+}
+
+[data-theme="light"] {
+  --bg:            #F5F5F3;
+  --bg-2:          #EBEBEA;
+  --surface:       #FFFFFF;
+  --surface-2:     #F0F0EE;
+  --border:        #E0E0DC;
+  --border-2:      #D0D0CC;
+  --ink:           #0F0F0F;
+  --ink-2:         #3D3D3D;
+  --ink-3:         #888888;
+  --ink-4:         #BBBBBB;
+  --nav-bg:        rgba(245,245,243,0.92);
+  --logo-src:      var(--logo-light-url);
+  --logo-filter:   none;
+  --swatch-border: 1px solid #e5e5e5;
+}
+
+[data-theme="dark"] {
+  --bg:            #1A1C1B;
+  --bg-2:          #141615;
+  --surface:       #242624;
+  --surface-2:     #2E312E;
+  --border:        #333633;
+  --border-2:      #404340;
+  --ink:           #F0F0EE;
+  --ink-2:         #BBBBBB;
+  --ink-3:         #777777;
+  --ink-4:         #444444;
+  --nav-bg:        rgba(26,28,27,0.92);
+  --logo-src:      var(--logo-dark-url);
+  --logo-filter:   none;
+  --swatch-border: none;
+}
+
+/* ╔══════════════════════════════════════════╗
+   ║  BASE                                    ║
+   ╚══════════════════════════════════════════╝ */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  transition: background var(--t), color var(--t);
+  min-height: 100vh;
+}
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+/* ╔══════════════════════════════════════════╗
+   ║  NAV                                     ║
+   ╚══════════════════════════════════════════╝ */
+
+nav {
+  position: sticky; top: 0; z-index: 200;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background var(--t), border-color var(--t);
+}
+
+.nav-inner {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  height: 56px; gap: 20px;
+}
+
+.nav-logo { display: flex; align-items: center; }
+.nav-logo img { height: 22px; display: block; }
+
+.nav-links {
+  display: flex; gap: 2px; list-style: none;
+  flex: 1; justify-content: center;
+}
+
+.nav-links a {
+  font-size: 12.5px; font-weight: 500;
+  color: var(--ink-3); text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: color var(--t), background var(--t);
+}
+.nav-links a:hover { color: var(--ink); background: var(--surface-2); }
+
+/* Theme Toggle */
+.theme-toggle {
+  display: flex; align-items: center; gap: 0;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 3px;
+  flex-shrink: 0;
+  transition: background var(--t), border-color var(--t);
+}
+
+.toggle-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 28px;
+  border: none; background: transparent; cursor: pointer;
+  border-radius: 6px;
+  color: var(--ink-3);
+  transition: all .15s;
+  font-size: 14px;
+}
+
+.toggle-btn.active {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 1px 3px rgba(0,0,0,.12);
+}
+
+[data-theme="dark"] .toggle-btn.active { box-shadow: 0 1px 3px rgba(0,0,0,.4); }
+
+/* ╔══════════════════════════════════════════╗
+   ║  HERO                                    ║
+   ╚══════════════════════════════════════════╝ */
+
+.hero {
+  padding: 80px 0 64px;
+  border-bottom: 1px solid var(--border);
+  transition: border-color var(--t);
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 14px 5px 8px;
+  font-size: 12px; font-weight: 500;
+  color: var(--ink-3);
+  margin-bottom: 28px;
+  transition: background var(--t), border-color var(--t), color var(--t);
+}
+
+.hero-badge-dot {
+  width: 20px; height: 20px;
+  background: var(--brand-dark);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.hero-badge-dot img { width: 12px; height: 12px; }
+
+.hero h1 {
+  font-size: clamp(42px, 6.5vw, 76px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  margin-bottom: 18px;
+  color: var(--ink);
+  transition: color var(--t);
+}
+
+.hero h1 .pink { color: var(--brand-pink); }
+
+.hero-sub {
+  font-size: 16px;
+  color: var(--ink-2);
+  max-width: 460px;
+  line-height: 1.7;
+  transition: color var(--t);
+}
+
+/* ╔══════════════════════════════════════════╗
+   ║  SECTION                                 ║
+   ╚══════════════════════════════════════════╝ */
+
+.section {
+  padding: 64px 0;
+  border-bottom: 1px solid var(--border);
+  transition: border-color var(--t);
+}
+
+.section:last-child { border-bottom: none; }
+
+.section-head {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 32px;
+}
+
+.section-num {
+  font-size: 11px; font-weight: 500;
+  color: var(--ink-4);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .04em;
+  transition: color var(--t);
+}
+
+.section-title {
+  font-size: 18px; font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  transition: color var(--t);
+}
+
+/* ╔══════════════════════════════════════════╗
+   ║  LOGO SECTION                            ║
+   ╚══════════════════════════════════════════╝ */
+
+.logo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.logo-card {
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color var(--t);
+}
+
+.logo-display {
+  height: 130px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.logo-display img { max-height: 30px; max-width: 80%; }
+
+.logo-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+  transition: border-color var(--t), background var(--t);
+}
+
+.logo-label {
+  font-size: 11.5px; font-weight: 500;
+  color: var(--ink-3);
+  transition: color var(--t);
+}
+
+.dl-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 500;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--ink-2);
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all .12s;
+}
+.dl-btn:hover { background: var(--border); color: var(--ink); }
+.dl-btn-inv {
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.12);
+  color: rgba(255,255,255,.5);
+}
+.dl-btn-inv:hover { background: rgba(255,255,255,.15); color: #fff; }
+
+/* Icon row */
+.icon-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.icon-card {
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color var(--t);
+}
+
+.icon-display {
+  height: 88px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.icon-display img { height: 36px; }
+
+/* ╔══════════════════════════════════════════╗
+   ║  COLORS                                  ║
+   ╚══════════════════════════════════════════╝ */
+
+.color-group-label {
+  font-size: 11px; font-weight: 600;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 10px;
+  transition: color var(--t);
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.color-tile {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .12s, border-color var(--t);
+}
+.color-tile:hover { transform: translateY(-2px); }
+
+.color-swatch { height: 68px; }
+
+.color-meta {
+  padding: 10px 12px;
+  background: var(--surface);
+  transition: background var(--t);
+}
+
+.color-name {
+  font-size: 12px; font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 2px;
+  transition: color var(--t);
+}
+
+.color-hex {
+  font-size: 11px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: var(--ink-3);
+  transition: color var(--t);
+}
+
+.color-copied {
+  font-size: 10px;
+  font-family: monospace;
+  color: var(--brand-pink);
+  min-height: 13px;
+  margin-top: 2px;
+}
+
+/* ╔══════════════════════════════════════════╗
+   ║  TYPOGRAPHY                              ║
+   ╚══════════════════════════════════════════╝ */
+
+.type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.type-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px;
+  transition: background var(--t), border-color var(--t);
+}
+
+.type-eyebrow {
+  font-size: 10.5px; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-3);
+  margin-bottom: 18px;
+  transition: color var(--t);
+}
+
+.type-specimen {
+  font-size: 56px; font-weight: 700;
+  letter-spacing: -0.04em; line-height: 1;
+  margin-bottom: 20px;
+  color: var(--ink);
+  transition: color var(--t);
+}
+
+.type-logotype {
+  font-size: 20px; font-weight: 700;
+  letter-spacing: .05em;
+  margin-bottom: 20px;
+  color: var(--ink);
+  transition: color var(--t);
+}
+
+.type-table { width: 100%; border-collapse: collapse; }
+.type-table td {
+  font-size: 12.5px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink-2);
+  transition: color var(--t), border-color var(--t);
+}
+.type-table td:last-child { text-align: right; color: var(--ink-3); }
+.type-table tr:last-child td { border-bottom: none; }
+
+/* ╔══════════════════════════════════════════╗
+   ║  THEME PREVIEW                           ║
+   ╚══════════════════════════════════════════╝ */
+
+.preview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.preview-frame {
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color var(--t);
+}
+
+.preview-topbar {
+  display: flex; align-items: center;
+  height: 44px; padding: 0 16px;
+  border-bottom: 1px solid;
+}
+
+.preview-dots { display: flex; gap: 5px; }
+.preview-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+.preview-body { padding: 16px; }
+
+.preview-nav-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 32px; border-radius: 8px;
+  padding: 0 12px; font-size: 11.5px; font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.preview-card {
+  border-radius: 6px; padding: 12px;
+  margin-bottom: 8px;
+}
+
+.preview-card-title {
+  font-size: 13px; font-weight: 600; margin-bottom: 4px;
+}
+
+.preview-card-text { font-size: 12px; line-height: 1.5; }
+
+.preview-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--brand-pink); color: #fff;
+  font-size: 12px; font-weight: 600;
+  padding: 8px 14px; border-radius: 6px;
+  margin-top: 6px;
+}
+
+.preview-footer {
+  font-size: 10px; font-family: monospace;
+  margin-top: 12px; opacity: .4;
+}
+
+/* Light preview */
+.pv-light .preview-topbar { background: #fff; border-color: #E0E0DC; }
+.pv-light .preview-body { background: #F5F5F3; }
+.pv-light .preview-nav-pill { background: #fff; border: 1px solid #E0E0DC; color: #0F0F0F; }
+.pv-light .preview-card { background: #fff; border: 1px solid #E0E0DC; }
+.pv-light .preview-card-title { color: #0F0F0F; }
+.pv-light .preview-card-text { color: #666; }
+.pv-light .preview-footer { color: #0F0F0F; }
+
+/* Dark preview */
+.pv-dark .preview-topbar { background: #1A1C1B; border-color: #333633; }
+.pv-dark .preview-body { background: #1A1C1B; }
+.pv-dark .preview-nav-pill { background: #242624; border: 1px solid #333633; color: #F0F0EE; }
+.pv-dark .preview-card { background: #242624; border: 1px solid #333633; }
+.pv-dark .preview-card-title { color: #F0F0EE; }
+.pv-dark .preview-card-text { color: #777; }
+.pv-dark .preview-footer { color: #F0F0EE; }
+
+/* ╔══════════════════════════════════════════╗
+   ║  DO / DON'T                              ║
+   ╚══════════════════════════════════════════╝ */
+
+.rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.rule-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  transition: background var(--t), border-color var(--t);
+}
+
+.rule-card.do { border-top: 2px solid var(--brand-dark); }
+.rule-card.dont { border-top: 2px solid #CC3344; }
+
+.rule-head {
+  font-size: 12px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; margin-bottom: 14px;
+}
+.do .rule-head { color: var(--ink); }
+.dont .rule-head { color: #CC3344; }
+
+.rule-list { list-style: none; }
+
+.rule-list li {
+  font-size: 13px;
+  color: var(--ink-2);
+  padding: 7px 0 7px 18px;
+  border-bottom: 1px solid var(--border);
+  position: relative; line-height: 1.45;
+  transition: color var(--t), border-color var(--t);
+}
+.rule-list li:last-child { border-bottom: none; }
+.rule-list li::before { position: absolute; left: 0; top: 8px; font-size: 11px; font-weight: 700; }
+.do .rule-list li::before { content: '✓'; color: #22C55E; }
+.dont .rule-list li::before { content: '✗'; color: #CC3344; }
+
+/* ╔══════════════════════════════════════════╗
+   ║  DOWNLOADS                               ║
+   ╚══════════════════════════════════════════╝ */
+
+.dl-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+
+.asset-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+  display: flex; flex-direction: column; gap: 7px;
+  transition: all .15s;
+}
+
+.asset-card:hover {
+  background: var(--brand-dark);
+  border-color: var(--brand-dark);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.2);
+}
+
+.asset-card:hover .asset-type { color: var(--brand-yellow); }
+.asset-card:hover .asset-desc { color: rgba(255,255,255,.45); }
+.asset-card:hover .asset-dl { color: var(--brand-yellow); }
+
+.asset-icon { font-size: 22px; margin-bottom: 2px; }
+.asset-name { font-size: 13px; font-weight: 700; color: var(--ink); transition: color var(--t); }
+.asset-type { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); transition: color var(--t); }
+.asset-desc { font-size: 12px; color: var(--ink-3); line-height: 1.4; flex: 1; transition: color var(--t); }
+.asset-dl { font-size: 12px; font-weight: 600; color: var(--ink-2); transition: color var(--t); }
+
+/* ╔══════════════════════════════════════════╗
+   ║  CONTACT                                 ║
+   ╚══════════════════════════════════════════╝ */
+
+.contact-block {
+  background: var(--brand-dark);
+  border-radius: 12px;
+  padding: 44px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin: 64px 0;
+}
+
+.contact-block h3 { font-size: 20px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 6px; color: #F0F0EE; }
+.contact-block p { font-size: 13.5px; color: rgba(255,255,255,.4); }
+.contact-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--brand-yellow); color: #111;
+  font-weight: 700; font-size: 13.5px;
+  padding: 13px 24px; border-radius: 8px;
+  text-decoration: none; white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity .15s;
+}
+.contact-cta:hover { opacity: .88; }
+
+/* ╔══════════════════════════════════════════╗
+   ║  FOOTER                                  ║
+   ╚══════════════════════════════════════════╝ */
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+  transition: border-color var(--t);
+}
+
+.footer-inner {
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.footer-inner p { font-size: 12px; color: var(--ink-3); transition: color var(--t); }
+.footer-inner a { color: var(--ink-2); transition: color var(--t); }
+
+/* ╔══════════════════════════════════════════╗
+   ║  RESPONSIVE                              ║
+   ╚══════════════════════════════════════════╝ */
+
+@media (max-width: 720px) {
+  .logo-grid, .preview-grid, .type-grid, .rules-grid { grid-template-columns: 1fr; }
+  .icon-row { grid-template-columns: repeat(2, 1fr); }
+  .dl-grid { grid-template-columns: repeat(2, 1fr); }
+  .color-grid { grid-template-columns: repeat(2, 1fr); }
+  .contact-block { flex-direction: column; padding: 32px; }
+  .nav-links { display: none; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ══════════ NAV ══════════ -->
+<nav>
+  <div class="wrap nav-inner">
+
+    <div class="nav-logo">
+      <img id="nav-logo" src="" alt="ServeurListe">
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#logos">Logo</a></li>
+      <li><a href="#couleurs">Couleurs</a></li>
+      <li><a href="#typo">Typographie</a></li>
+      <li><a href="#themes">Thèmes</a></li>
+      <li><a href="#regles">Règles</a></li>
+      <li><a href="#dl">Téléchargements</a></li>
+    </ul>
+
+    <div class="theme-toggle">
+      <button class="toggle-btn" id="btn-light" onclick="setTheme('light')" title="Thème clair">
+        ☀️
+      </button>
+      <button class="toggle-btn active" id="btn-dark" onclick="setTheme('dark')" title="Thème sombre">
+        🌙
+      </button>
+    </div>
+
+  </div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-badge">
+      <div class="hero-badge-dot">
+        <img id="badge-icon" src="" alt="">
+      </div>
+      Brand Kit · v1.0 · 2025
+    </div>
+    <h1>Identité<br><span class="pink">visuelle</span></h1>
+    <p class="hero-sub">Assets officiels ServeurListe — logos, couleurs, typographie et règles d'usage pour vos partenariats et créations.</p>
+  </div>
+</div>
+
+<!-- ══════════ LOGOS ══════════ -->
+<div class="wrap">
+  <section class="section" id="logos">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Logo</h2>
+    </div>
+
+    <div class="logo-grid">
+      <!-- Fond clair -->
+      <div class="logo-card">
+        <div class="logo-display" style="background:#FFFFFF;">
+          <img id="logo-on-white" src="" alt="Logo fond clair">
+        </div>
+        <div class="logo-footer" style="background:var(--surface); border-top-color:var(--border)">
+          <span class="logo-label">Fond clair</span>
+          <button class="dl-btn" onclick="dlPNG('light')">↓ PNG</button>
+        </div>
+      </div>
+
+      <!-- Fond sombre -->
+      <div class="logo-card">
+        <div class="logo-display" style="background:#1A1C1B;">
+          <img id="logo-on-dark" src="" alt="Logo fond sombre">
+        </div>
+        <div class="logo-footer" style="background:#1A1C1B; border-top-color:#333633">
+          <span class="logo-label" style="color:rgba(255,255,255,.35)">Fond sombre</span>
+          <button class="dl-btn dl-btn-inv" onclick="dlPNG('dark')">↓ PNG</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Icônes -->
+    <div class="icon-row">
+      <div class="icon-card">
+        <div class="icon-display" style="background:#FFFFFF;">
+          <img id="ic-white" src="" alt="Icône">
+        </div>
+        <div class="logo-footer" style="background:var(--surface);border-top-color:var(--border)">
+          <span class="logo-label">Icône · clair</span>
+          <button class="dl-btn" onclick="dlPNG('icon')">↓</button>
+        </div>
+      </div>
+      <div class="icon-card">
+        <div class="icon-display" style="background:#1A1C1B;">
+          <img id="ic-dark" src="" alt="Icône">
+        </div>
+        <div class="logo-footer" style="background:#1A1C1B;border-top-color:#333633">
+          <span class="logo-label" style="color:rgba(255,255,255,.35)">Icône · sombre</span>
+          <button class="dl-btn dl-btn-inv" onclick="dlPNG('icon')">↓</button>
+        </div>
+      </div>
+      <div class="icon-card">
+        <div class="icon-display" style="background:#F5F07A;">
+          <img id="ic-yellow" src="" alt="Icône" style="filter:brightness(0)">
+        </div>
+        <div class="logo-footer" style="background:var(--surface);border-top-color:var(--border)">
+          <span class="logo-label">Icône · jaune</span>
+          <button class="dl-btn" onclick="dlPNG('icon')">↓</button>
+        </div>
+      </div>
+      <div class="icon-card">
+        <div class="icon-display" style="background:#E84A7A;">
+          <img id="ic-pink" src="" alt="Icône" style="filter:brightness(0) invert(1)">
+        </div>
+        <div class="logo-footer" style="background:var(--surface);border-top-color:var(--border)">
+          <span class="logo-label">Icône · rose</span>
+          <button class="dl-btn" onclick="dlPNG('icon')">↓</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ COULEURS ══════════ -->
+<div class="wrap">
+  <section class="section" id="couleurs">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Couleurs</h2>
+    </div>
+
+    <div class="color-group-label">Palette principale</div>
+    <div class="color-grid">
+      <div class="color-tile" onclick="copyHex('#1A1C1B',this)">
+        <div class="color-swatch" style="background:#1A1C1B"></div>
+        <div class="color-meta"><div class="color-name">Dark</div><div class="color-hex">#1A1C1B</div><div class="color-copied"></div></div>
+      </div>
+      <div class="color-tile" onclick="copyHex('#F5F07A',this)">
+        <div class="color-swatch" style="background:#F5F07A"></div>
+        <div class="color-meta"><div class="color-name">Jaune</div><div class="color-hex">#F5F07A</div><div class="color-copied"></div></div>
+      </div>
+      <div class="color-tile" onclick="copyHex('#E84A7A',this)">
+        <div class="color-swatch" style="background:#E84A7A"></div>
+        <div class="color-meta"><div class="color-name">Rose · CTA</div><div class="color-hex">#E84A7A</div><div class="color-copied"></div></div>
+      </div>
+      <div class="color-tile" onclick="copyHex('#FFFFFF',this)">
+        <div class="color-swatch" style="background:#fff; border-bottom: var(--swatch-border)"></div>
+        <div class="color-meta"><div class="color-name">Blanc</div><div class="color-hex">#FFFFFF</div><div class="color-copied"></div></div>
+      </div>
+    </div>
+
+    <div class="color-group-label">Thème clair</div>
+    <div class="color-grid">
+      <div class="color-tile" onclick="copyHex('#F5F5F3',this)">
+        <div class="color-swatch" style="background:#F5F5F3; border-bottom:1px solid #e5e5e5"></div>
+        <div class="color-meta"><div class="color-name">Fond</div><div class="color-hex">#F5F5F3</div><div class="color-copied"></div></div>
+      </div>
+      <div class="color-tile" onclick="copyHex('#FFFFFF',this)">
+        <div class="color-swatch" style="background:#FFFFFF; border-bottom:1px solid #e5e5e5"></div>
+        <div class="color-meta"><div class="color-name">Surface</div><div class="color-hex">#FFFFFF</div><div class="color-copied"></div></div>
+      </div>
+      <div class="color-tile" onclick="copyHex('#E0E0DC',this)">
+        <div class="color-swatch" style="background:#E0E0DC"></div>
+        <div class="color-meta"><div class="color-name">Bordure</div><div class="color-hex">#E0E0DC</div><div class="color-copied"></div></div>
+      </div>
+      <div class="color-tile" onclick="copyHex('#0F0F0F',this)">
+        <div class="color-swatch" style="background:#0F0F0F"></div>
+        <div class="color-meta"><div class="color-name">Texte</div><div class="color-hex">#0F0F0F</div><div class="color-copied"></div></div>
+      </div>
+    </div>
+
+    <div class="color-group-label">Thème sombre</div>
+    <div class="color-grid" style="margin-bottom:0">
+      <div class="color-tile" onclick="copyHex('#1A1C1B',this)">
+        <div class="color-swatch" style="background:#1A1C1B"></div>
+        <div class="color-meta"><div class="color-name">Fond</div><div class="color-hex">#1A1C1B</div><div class="color-copied"></div></div>
+      </div>
+      <div class="color-tile" onclick="copyHex('#242624',this)">
+        <div class="color-swatch" style="background:#242624"></div>
+        <div class="color-meta"><div class="color-name">Surface</div><div class="color-hex">#242624</div><div class="color-copied"></div></div>
+      </div>
+      <div class="color-tile" onclick="copyHex('#333633',this)">
+        <div class="color-swatch" style="background:#333633"></div>
+        <div class="color-meta"><div class="color-name">Bordure</div><div class="color-hex">#333633</div><div class="color-copied"></div></div>
+      </div>
+      <div class="color-tile" onclick="copyHex('#F0F0EE',this)">
+        <div class="color-swatch" style="background:#F0F0EE"></div>
+        <div class="color-meta"><div class="color-name">Texte</div><div class="color-hex">#F0F0EE</div><div class="color-copied"></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ TYPO ══════════ -->
+<div class="wrap">
+  <section class="section" id="typo">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Typographie</h2>
+    </div>
+    <div class="type-grid">
+      <div class="type-card">
+        <div class="type-eyebrow">Interface — Inter</div>
+        <div class="type-specimen">Aa</div>
+        <table class="type-table">
+          <tr><td>700 Bold</td><td>Titres, CTA</td></tr>
+          <tr><td>600 SemiBold</td><td>Sous-titres</td></tr>
+          <tr><td>500 Medium</td><td>Nav, labels</td></tr>
+          <tr><td>400 Regular</td><td>Corps de texte</td></tr>
+        </table>
+      </div>
+      <div class="type-card">
+        <div class="type-eyebrow">Logotype — Inter 700 All Caps</div>
+        <div class="type-logotype">SERVEURLISTE</div>
+        <table class="type-table">
+          <tr><td>Police</td><td>Inter</td></tr>
+          <tr><td>Graisse</td><td>700 Bold</td></tr>
+          <tr><td>Casse</td><td>UPPERCASE</td></tr>
+          <tr><td>Letter-spacing</td><td>0.04em</td></tr>
+          <tr><td>Light — couleur texte</td><td>#0F0F0F</td></tr>
+          <tr><td>Dark — couleur texte</td><td>#FFFFFF</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ THEMES ══════════ -->
+<div class="wrap">
+  <section class="section" id="themes">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Aperçu thèmes</h2>
+    </div>
+    <div class="preview-grid">
+
+      <!-- LIGHT -->
+      <div class="preview-frame pv-light">
+        <div class="preview-topbar" style="justify-content:space-between">
+          <img src="" id="prev-logo-light" style="height:18px" alt="">
+          <div style="display:flex;gap:6px;align-items:center">
+            <div style="width:60px;height:22px;background:#E84A7A;border-radius:5px"></div>
+          </div>
+        </div>
+        <div class="preview-body">
+          <div class="preview-nav-pill">🎮 Classement Minecraft</div>
+          <div class="preview-card">
+            <div class="preview-card-title">Serveur SkyCraft</div>
+            <div class="preview-card-text">Java · Survie · PvP · 307 serveurs référencés</div>
+          </div>
+          <div class="preview-card">
+            <div class="preview-card-title">Serveur FiveM RP</div>
+            <div class="preview-card-text">Roleplay · Métiers · 29 serveurs référencés</div>
+          </div>
+          <div class="preview-cta">Trouver un serveur →</div>
+          <div class="preview-footer">LIGHT · BG #F5F5F3 · Surface #FFFFFF · CTA #E84A7A</div>
+        </div>
+      </div>
+
+      <!-- DARK -->
+      <div class="preview-frame pv-dark">
+        <div class="preview-topbar" style="justify-content:space-between">
+          <img src="" id="prev-logo-dark" style="height:18px" alt="">
+          <div style="display:flex;gap:6px;align-items:center">
+            <div style="width:60px;height:22px;background:#E84A7A;border-radius:5px"></div>
+          </div>
+        </div>
+        <div class="preview-body">
+          <div class="preview-nav-pill">🎮 Classement Minecraft</div>
+          <div class="preview-card">
+            <div class="preview-card-title">Serveur SkyCraft</div>
+            <div class="preview-card-text">Java · Survie · PvP · 307 serveurs référencés</div>
+          </div>
+          <div class="preview-card">
+            <div class="preview-card-title">Serveur FiveM RP</div>
+            <div class="preview-card-text">Roleplay · Métiers · 29 serveurs référencés</div>
+          </div>
+          <div class="preview-cta">Trouver un serveur →</div>
+          <div class="preview-footer">DARK · BG #1A1C1B · Surface #242624 · CTA #E84A7A</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ RÈGLES ══════════ -->
+<div class="wrap">
+  <section class="section" id="regles">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Règles d'usage</h2>
+    </div>
+    <div class="rules-grid">
+      <div class="rule-card do">
+        <div class="rule-head">✓ Autorisé</div>
+        <ul class="rule-list">
+          <li>Utiliser le logo sur fond blanc ou fond dark #1A1C1B</li>
+          <li>Respecter les proportions originales sans déformation</li>
+          <li>Citer "ServeurListe" avec un lien vers serveurliste.fr</li>
+          <li>Respecter un espace libre autour du logo</li>
+          <li>Utiliser uniquement les couleurs de la charte officielle</li>
+        </ul>
+      </div>
+      <div class="rule-card dont">
+        <div class="rule-head">✗ Interdit</div>
+        <ul class="rule-list">
+          <li>Modifier ou recolorer les éléments du logo</li>
+          <li>Appliquer des effets : ombre, glow, flou, rotation</li>
+          <li>Placer le logo sur un fond peu contrasté ou coloré</li>
+          <li>Laisser supposer un partenariat officiel non validé</li>
+          <li>Reconstruire l'icône ou le logotype à partir de zéro</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ DOWNLOADS ══════════ -->
+<div class="wrap">
+  <section class="section" id="dl">
+    <div class="section-head">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Téléchargements</h2>
+    </div>
+    <div class="dl-grid">
+      <div class="asset-card" onclick="dlPack()">
+        <div class="asset-icon">📦</div>
+        <div class="asset-name">Pack complet</div>
+        <div class="asset-type">PNG + CSS</div>
+        <div class="asset-desc">Tous les logos et la palette CSS officielle</div>
+        <div class="asset-dl">↓ Tout télécharger</div>
+      </div>
+      <div class="asset-card" onclick="dlPNG('light')">
+        <div class="asset-icon">☀️</div>
+        <div class="asset-name">Logo clair</div>
+        <div class="asset-type">PNG</div>
+        <div class="asset-desc">Version optimisée pour fond blanc</div>
+        <div class="asset-dl">↓ Télécharger</div>
+      </div>
+      <div class="asset-card" onclick="dlPNG('dark')">
+        <div class="asset-icon">🌙</div>
+        <div class="asset-name">Logo sombre</div>
+        <div class="asset-type">PNG</div>
+        <div class="asset-desc">Version optimisée pour fond sombre</div>
+        <div class="asset-dl">↓ Télécharger</div>
+      </div>
+      <div class="asset-card" onclick="dlCSS()">
+        <div class="asset-icon">🎨</div>
+        <div class="asset-name">Palette CSS</div>
+        <div class="asset-type">.CSS</div>
+        <div class="asset-desc">Variables CSS light/dark prêtes à l'emploi</div>
+        <div class="asset-dl">↓ Télécharger</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ CONTACT ══════════ -->
+<div class="wrap">
+  <div class="contact-block">
+    <div>
+      <h3>Une question sur l'usage de nos ressources ?</h3>
+      <p>Contactez-nous avant toute utilisation commerciale ou intégration dans un partenariat.</p>
+    </div>
+    <a class="contact-cta" href="mailto:contact@serveurliste.fr">Nous contacter →</a>
+  </div>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="wrap footer-inner">
+    <p>© 2025 ServeurListe — Tous droits réservés</p>
+    <p><a href="https://serveurliste.fr">serveurliste.fr</a></p>
+  </div>
+</footer>
+
+<script>
+/* ── LOGOS ── */
+const LOGO = {
+  light: 'data:image/png;base64,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',
+  dark:  'data:image/png;base64,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',
+  icon:  'data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAqACoDASIAAhEBAxEB/8QAHAAAAQQDAQAAAAAAAAAAAAAAAAQGBwgBAgMF/8QALBAAAgEDBAEDAwMFAAAAAAAAAQIDBAURAAYHIRITIjIIQWEUFRYxM0Jxkf/EABkBAAMBAQEAAAAAAAAAAAAAAAABAwQFBv/EACERAAICAgEEAwAAAAAAAAAAAAECAAMEERIFIVHwE0Fi/9oADAMBAAIRAxEAPwCr0UaRRiONQqgYA1vo1L/EfAW59+2eK+zV1NZbTMT6EsyGSWYAkeSxjHtyCMlh+ARqGRlVYyc7W0IKpY6EiDRqUeYeEd0cc0K3aaenutnaQRtV0wYNCT8fUQ/EE9AgsM4BIJALL2hs/c27mrl25Z6m5GgpzUVPpAexRnAGT7mOD4oMs2DgHB0qsui2r5UYcfMCjA6IngnsYOkjW2kZi3p4yc9E6WaNaIoavJzve7xsbgikqdiyelHAtJSLVIoc09J4eKupPWSRGgYg/PrBwRRvVkOOfqBtdv4dq9t7noFr7pb6E0tvimg9Snro8BI45AOgFU4bOAyKeyxweH1nFstamxF5BW7jzvUtS4GwTrclLiS/jmjgyvt24Xha4SJLba6T0l/ueIMc4QdAgMjfYeaNgAAAMz6OI922C+7p2XerPPS0VGwnkkkix6VVlU8A4HvDoAw7IxHlemJMKcFcpV3GW456paX9da69VSupQ3gx8c+EiH7Mvk3R6IZh0SGWc90fVZttLPJ/Gdv3aouRUiL9xSOKFCR0x8JGZgDj2jxyP8hrk5fTsqo249FfKuzRH5Pvv1LJYh0zHuJXfmqio7fy1umjoBGtNHdJ/BI1wseXJKAfYKSVx+NNDXe5VtVcrjU3Guneoq6qZ555X+UjsSzMfySSdcNeupQpWqk7IAmMnZ3MazpHZ2LUEZYk/wBR2dLNUiho0aNEIa1LoDgsv/dD/A/601HZi7EsSSeyTojn/9k=',
+};
+
+function injectLogos() {
+  document.getElementById('badge-icon').src    = LOGO.icon;
+  document.getElementById('logo-on-white').src = LOGO.light;
+  document.getElementById('logo-on-dark').src  = LOGO.dark;
+  document.getElementById('ic-white').src      = LOGO.icon;
+  document.getElementById('ic-dark').src       = LOGO.icon;
+  document.getElementById('ic-yellow').src     = LOGO.icon;
+  document.getElementById('ic-pink').src       = LOGO.icon;
+  document.getElementById('prev-logo-light').src = LOGO.light;
+  document.getElementById('prev-logo-dark').src  = LOGO.dark;
+}
+
+/* ── THEME ── */
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('btn-light').classList.toggle('active', t === 'light');
+  document.getElementById('btn-dark').classList.toggle('active',  t === 'dark');
+  document.getElementById('nav-logo').src = t === 'dark' ? LOGO.dark : LOGO.light;
+  localStorage.setItem('sl-theme', t);
+}
+
+/* ── COPY HEX ── */
+function copyHex(hex, el) {
+  navigator.clipboard.writeText(hex);
+  const out = el.querySelector('.color-copied');
+  out.textContent = '✓ Copié';
+  setTimeout(() => out.textContent = '', 1800);
+}
+
+/* ── DOWNLOADS ── */
+function dlPNG(type) {
+  const a = document.createElement('a');
+  a.href = type === 'icon' ? LOGO.icon : LOGO[type];
+  a.download = `serveurliste-logo-${type}.png`;
+  a.click();
+}
+
+function dlCSS() {
+  const css = `/* ═══════════════════════════════════════════
+   ServeurListe — Variables CSS officielles
+   https://serveurliste.fr
+   ═══════════════════════════════════════════ */
+
+:root {
+  /* Brand */
+  --sl-dark:         #1A1C1B;
+  --sl-yellow:       #F5F07A;
+  --sl-pink:         #E84A7A;
+  --sl-white:        #FFFFFF;
+}
+
+/* Thème clair */
+[data-theme="light"] {
+  --sl-bg:           #F5F5F3;
+  --sl-surface:      #FFFFFF;
+  --sl-surface-2:    #F0F0EE;
+  --sl-border:       #E0E0DC;
+  --sl-text:         #0F0F0F;
+  --sl-text-2:       #3D3D3D;
+  --sl-text-muted:   #888888;
+}
+
+/* Thème sombre */
+[data-theme="dark"] {
+  --sl-bg:           #1A1C1B;
+  --sl-surface:      #242624;
+  --sl-surface-2:    #2E312E;
+  --sl-border:       #333633;
+  --sl-text:         #F0F0EE;
+  --sl-text-2:       #BBBBBB;
+  --sl-text-muted:   #777777;
+}`;
+  const blob = new Blob([css], { type: 'text/css' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'serveurliste-theme.css'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function dlPack() {
+  dlPNG('light');
+  setTimeout(() => dlPNG('dark'), 300);
+  setTimeout(() => dlPNG('icon'), 600);
+  setTimeout(() => dlCSS(), 900);
+}
+
+/* ── INIT ── */
+injectLogos();
+const saved = localStorage.getItem('sl-theme') || 'dark';
+setTheme(saved);
+</script>
+
+</body>
+</html>
